@@ -1,0 +1,10 @@
+
+Class: pack1.P Package: java.lang Methode: main line: 27 AT: Tue May 05 22:34:09 CET 2020 message: / by zero
+Class: pack1.P$Action1 Package: java.lang Methode: <init> line: 66 AT: Tue May 05 22:37:25 CET 2020 message: / by zero
+Class: pack1.P$Action1 Package: java.lang Methode: actionPerformed line: 67 AT: Tue May 05 22:42:41 CET 2020 message: / by zero
+Class: pack1.P$Action1 Package: java.lang Methode: <init> line: 64 AT: Tue May 05 22:43:03 CET 2020 message: / by zero
+Class: pack1.P$Action1 Package: java.lang Methode: <init> line: 64 AT: Tue May 05 22:43:06 CET 2020 message: / by zero
+Class: pack1.P$Action1 Package: java.lang Methode: <init> line: 64 AT: Tue May 05 22:43:15 CET 2020 message: / by zero
+Class: pack1.P$Action1 Package: java.lang Methode: <init> line: 64 AT: Tue May 05 22:43:24 CET 2020 message: / by zero
+Class: pack1.P$Action1 Package: java.lang Methode: <init> line: 64 AT: Tue May 05 22:43:46 CET 2020 message: / by zero
+Class: pack1.P$Action1 Package: java.lang Methode: actionPerformed line: 90 AT: Tue May 05 23:09:08 CET 2020 message: null
