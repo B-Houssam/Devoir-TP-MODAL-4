@@ -1,0 +1,39 @@
+-------------------------------------------------------------------------------------------------------------------------------------
+Description textuelle -- Date : Wed May 06 16:18:10 CET 2020
+-------------------------------------------------------------------------------------------------------------------------------------
+Information projet
+-------------------------------------------------------------------------------------------------------------------------------------
+Nom du projet: DummyData
+Nombre de packages: 1
+Nombre de classe: 2
+Java version: 1.8.0_242
+OS: Linux
+-------------------------------------------------------------------------------------------------------------------------------------
+Informations classes
+-------------------------------------------------------------------------------------------------------------------------------------
+Classe 1:
+Nom Package: pack1
+Nom Class: Calcule
+Nombre des attributs publics: 0
+Liste et types des attributs publics: [ ]
+Nombre des attributs privés: 0
+Liste et types des attributs privés : [ ]
+Liste des constructeurs: [ pack1.Calcule ]
+Nombre de méthodes: 3
+Liste des méthodes: [ somme, produit, TPReflexion, ]
+Type de retour des méthodes: [ somme: int, produit: int, TPReflexion: String, ]
+Paramètres et types des méthodes: somme[param1: int, param2: int, ], produit[param1: int, param2: int, param3: int, ], TPReflexion[], 
+-------------------------------------------------------------------------------------------------------------------------------------
+Classe 2:
+Nom Package: pack1
+Nom Class: Test
+Nombre des attributs publics: 0
+Liste et types des attributs publics: [ ]
+Nombre des attributs privés: 0
+Liste et types des attributs privés : [ ]
+Liste des constructeurs: [ pack1.Test ]
+Nombre de méthodes: 1
+Liste des méthodes: [ test, ]
+Type de retour des méthodes: [ test: void, ]
+Paramètres et types des méthodes: test[], 
+-------------------------------------------------------------------------------------------------------------------------------------

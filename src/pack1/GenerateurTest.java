@@ -1,26 +1,18 @@
 package pack1;
 
-import java.awt.Container;
-import java.awt.FlowLayout;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class GenerateurTest {
 
@@ -96,6 +88,8 @@ public class GenerateurTest {
 					
 					br.write("import static org.junit.Assert.assertEquals;");
 					br.newLine();
+					br.write("import org.junit.jupiter.api.BeforeEach;");
+					br.newLine();
 					br.write("import org.junit.jupiter.api.Test;");
 					br.newLine();
 					br.write("import java.util.Random;");
@@ -108,54 +102,102 @@ public class GenerateurTest {
 					br.newLine();
 					br.write(c.getSimpleName() + " cl = new " + c.getSimpleName() + "();");
 					br.newLine();
-					
-					/*
-					 JTextField tf;
-					 Container container;
-					 container = getContentPane();
-				     setBounds(0, 0, 500, 300);
-				     tf = new JTextField(25);
-				     setLayout(new FlowLayout());
-				     container.add(new JLabel("Enter the number"));
-				     container.add(tf);
-				     container.add(label = new JLabel());
-				      setDefaultCloseOperation(EXIT_ON_CLOSE);
-				     */
 				      
 					br.write("Random rand = new Random();");
 					br.newLine();
 					br.write("int upperbound = 10;");
 					br.newLine();
-					br.write("int int_random1 = rand.nextInt(upperbound);");
+					br.write("@BeforeEach");
 					br.newLine();
-					br.write("int int_random2 = rand.nextInt(upperbound);");
+					br.write("public void setUp() throws Exception {");
+					br.newLine();
+					br.write("System.out.println(\"Qu'attendez vous de cette execution: \");");
+					br.newLine();
+					br.write("}");
 					br.newLine();
 					
 					Method[] declaredMethodes = c.getDeclaredMethods();
 					int ii=1;
-					for (Method meth : declaredMethodes) {
-						br.write("@Test");
-						br.newLine();
-						br.write("void Test" + meth.getName() + "() {");
-						br.newLine();
-						br.write("System.out.println(\"Qu'attendez vous de cette execution: \");");
-						br.newLine();
-						br.write("System.out.println(\""+meth.getName() + "(\"+int_random1+ \",\" + int_random2 +\"): \");");
-						br.newLine();
-						br.write("Scanner myObj"+ ii +" = new Scanner(System.in);");
-						br.newLine();
-						br.write("int res"+ii+" = myObj"+ ii +".nextInt();");
-						br.newLine();
-						br.write("assertEquals(res"+ii+ ",cl." + meth.getName() + 
-								"(int_random1,int_random2));");
-						ii++;
-						br.newLine();
-						br.write("}");
-					}
 					
+					for (Method meth : declaredMethodes) {
+						int nbParam = meth.getParameterCount();
+						if (nbParam == 0) {
+							br.write("@Test");
+							br.newLine();
+							br.write("void Test" + meth.getName() + "() {");
+							br.newLine();
+							br.write("System.out.println(\""+meth.getName() + "():\");");
+							br.newLine();
+							br.write("Scanner myObj"+ ii +" = new Scanner(System.in);");
+							br.newLine();
+							if (meth.getReturnType().getSimpleName().equalsIgnoreCase("int")) {
+								br.write("int res"+ii+" = myObj"+ ii +".nextInt();");
+								br.newLine();
+							}
+							if (meth.getReturnType().getSimpleName().equalsIgnoreCase("string")) {
+								br.write("String res"+ii+" = myObj"+ ii +".nextLine();");
+								br.newLine();
+							}
+							br.write("assertEquals(res"+ii+ ",cl." + meth.getName()+"());");
+							ii++;
+							br.newLine();
+							br.write("}");
+							br.newLine();
+							//--------------//
+						}else {
+							Class[] parameterTypes = meth.getParameterTypes();
+							for (int k = 0; k < nbParam; k++) {
+								if (parameterTypes[k].getSimpleName().equalsIgnoreCase("String") == false) {
+									br.write(parameterTypes[k].getSimpleName() + " random" + (k+1) + (ii) + " = rand.nextInt(upperbound);");
+									br.newLine();
+								}
+								if (parameterTypes[k].getSimpleName().equalsIgnoreCase("String")) {
+								    br.write(parameterTypes[k].getSimpleName() + " random" + (k+1) + (ii) + " = \"HHBBCC\";");
+								    br.newLine();
+								}
+							}
+							br.write("@Test");
+							br.newLine();
+							br.write("void Test" + meth.getName() + "() {");
+							br.newLine();
+							br.write("System.out.println(\""+meth.getName() + "(\"");
+							for (int k = 0; k < nbParam; k++) {
+								if (k == (nbParam - 1)) {
+									br.write("+ random"+ (k+1) + (ii) +" + ");
+								}
+								else {
+									br.write("+ random"+ (k+1) + (ii) +" + \",\"");
+								}
+							}
+							br.write("\")\");");
+							br.newLine();
+							br.write("Scanner myObj"+ ii +" = new Scanner(System.in);");
+							br.newLine();
+							if (meth.getReturnType().getSimpleName().equalsIgnoreCase("int")) {
+								br.write("int res"+ii+" = myObj"+ ii +".nextInt();");
+								br.newLine();
+							}
+							if (meth.getReturnType().getSimpleName().equalsIgnoreCase("string")) {
+								br.write("String res"+ii+" = myObj"+ ii +".nextLine();");
+								br.newLine();
+							}
+							br.write("assertEquals(res"+ii+ ",cl." + meth.getName()+"(");
+							for (int k = 0; k < nbParam; k++) {
+								if (k == (nbParam -1) ) {
+									br.write("random"+ (k+1) + (ii));
+								}else {
+									br.write("random"+ (k+1) + (ii) + ",");
+								}	
+							}
+							br.write("));");
+							ii++;
+							br.newLine();
+							br.write("}");
+							br.newLine();
+						}	
+					}
 					br.newLine();
 					br.write("}");
-				
 					br.close();
 				}
 			}
